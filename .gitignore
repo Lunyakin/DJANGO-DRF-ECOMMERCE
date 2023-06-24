@@ -3,4 +3,4 @@
 .venv
 .idea
 .env
-core/db.sqlite3
+db.sqlite3
