@@ -1,18 +1,33 @@
-#Comands
+**#Comands**
 
------------generation of SECRET_KEY-----------
-py manage.py shell
-from django.core.management.utils import get_random_secret_key
-print(get_random_secret_key())
+_-----------generation of SECRET_KEY-----------_
+1. py manage.py shell
+2. from django.core.management.utils import get_random_secret_key
+3. print(get_random_secret_key())
 
-#Packages
+_-----------generation Schema by drf-spectacular-----------_
+1. py manage.py spectacular --file schema.yml
 
-python-dotenv  
-Django==4.2.2
-djangorestframework==3.14.0
-pytest==7.4.0
-pytest-django
+_-----------For testing project-----------_
+coverage run -m pytest
+coverage html  # for creating report in html
+pytest --cov
 
-##Pytest
+
+**#Packages**
+
+1. python-dotenv  
+2. Django==4.2.2
+3. djangorestframework==3.14.0
+4. pytest==7.4.0
+5. pytest-django
+6. django-mptt
+7. drf-spectacular
+8. coverage
+9. pytest-factoryboy  #factory for testing
+
+
+
+**##Pytest**
 
 pytest -h # prints options _and_ config file settings
