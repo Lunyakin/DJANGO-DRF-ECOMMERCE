@@ -25,6 +25,8 @@ pytest --cov
 7. drf-spectacular
 8. coverage
 9. pytest-factoryboy  #factory for testing
+10. pillow
+
 
 
 
