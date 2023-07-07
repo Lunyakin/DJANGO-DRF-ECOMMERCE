@@ -14,7 +14,9 @@ inflection==0.5.1
 iniconfig==2.0.0
 jsonschema==4.17.3
 packaging==23.1
+Pillow==9.5.0
 pluggy==1.2.0
+Pygments==2.15.1
 pyrsistent==0.19.3
 pytest==7.4.0
 pytest-cov==4.1.0

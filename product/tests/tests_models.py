@@ -44,4 +44,7 @@ class TestProductLineModel:
             product_line_factory(order=1, product=obj)
 
 
-
+class TestProductImage:
+    def test_str_method(self, product_image_factory):
+        obj = product_image_factory(url='123456')
+        assert obj.__str__() == '123456'
