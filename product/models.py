@@ -15,12 +15,12 @@ class Category(MPTTModel):
     is_active = models.BooleanField(default=False)
     slug = models.SlugField(max_length=255)
 
-    parent = TreeForeignKey('self', on_delete=models.PROTECT, null=True, blank=True)
+    parent = TreeForeignKey("self", on_delete=models.PROTECT, null=True, blank=True)
 
     objects = ActiveQueryset.as_manager()
 
     class MPTTMeta:
-        order_insertion_by = ['name']
+        order_insertion_by = ["name"]
 
     def __str__(self):
         return self.name
@@ -38,12 +38,16 @@ class Brand(models.Model):
 
 class Product(models.Model):
     name = models.CharField(max_length=100)
-    slug = models.SlugField(max_length=250, )
+    slug = models.SlugField(
+        max_length=250,
+    )
     descriptions = models.TextField(blank=True)
     is_digital = models.BooleanField(default=False)
 
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE)
-    category = TreeForeignKey('Category', null=True, blank=True, on_delete=models.SET_NULL)
+    category = TreeForeignKey(
+        "Category", null=True, blank=True, on_delete=models.SET_NULL
+    )
     is_active = models.BooleanField(default=False)
 
     objects = ActiveQueryset.as_manager()
@@ -57,18 +61,16 @@ class ProductLine(models.Model):
     sku = models.CharField(max_length=100)
     stock_qty = models.IntegerField()
     product = models.ForeignKey(
-        Product,
-        on_delete=models.CASCADE,
-        related_name='product_line'
+        Product, on_delete=models.CASCADE, related_name="product_line"
     )
     is_active = models.BooleanField(default=False)
-    order = OrderField(unique_for_field='product', blank=True)
+    order = OrderField(unique_for_field="product", blank=True)
 
     def clean(self, exclude=None):
         qs = ProductLine.objects.filter(product=self.product)
         for obj in qs:
             if self.id != obj.id and self.order == obj.order:
-                raise ValidationError('Duplicate value.')
+                raise ValidationError("Duplicate value.")
 
     def save(self, *args, **kwargs):
         self.full_clean()
@@ -82,19 +84,17 @@ class ProductLine(models.Model):
 
 class ProductImage(models.Model):
     alternative_text = models.CharField(max_length=100)
-    url = models.ImageField(upload_to=None, default='test.jpg')
+    url = models.ImageField(upload_to=None, default="test.jpg")
     product_line = models.ForeignKey(
-        ProductLine,
-        on_delete=models.CASCADE,
-        related_name='product_image'
+        ProductLine, on_delete=models.CASCADE, related_name="product_image"
     )
-    order = OrderField(unique_for_field='product_line', blank=True)
+    order = OrderField(unique_for_field="product_line", blank=True)
 
     def clean(self, exclude=None):
         qs = ProductImage.objects.filter(product_line=self.product_line)
         for obj in qs:
             if self.id != obj.id and self.order == obj.order:
-                raise ValidationError('Duplicate value.')
+                raise ValidationError("Duplicate value.")
 
     def save(self, *args, **kwargs):
         self.full_clean()
